@@ -1,11 +1,19 @@
-use actix_web::{get, web, Responder};
-use crate::utils::api_response;
+use serde_json::json;
+use actix_web::{HttpResponse, Responder, get, web};
+
+
+
+
 #[get("/hello/{name}")]
 pub async fn greet(name: web::Path<String>) -> impl Responder {
-    api_response::ApiResponse::new(200, format!("Hello {name}!"))
+    let res = json!({ "message": format!("Hello, {name}") });
+    HttpResponse::Ok().json(res)
 }
 
-#[get("/test")]
-pub async fn test() -> impl Responder {
-    api_response::ApiResponse::new(200, "Test".to_string())
+#[get("/test/{token}")]
+pub async fn test(token: web::Path<String>) -> impl Responder {
+    match token.as_str() {
+        "12" => HttpResponse::Ok().json(json!({ "message": "Test 12" })),
+        _ => HttpResponse::ImATeapot().json(json!({ "message": "i am teapot" })),
+    }
 }
