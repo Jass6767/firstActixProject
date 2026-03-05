@@ -1,10 +1,13 @@
 mod utils;
 mod routes;
+mod config;
+use config::database::connect;
+use config::settings::Settings;
 use actix_web::{App, HttpServer, middleware::Logger};
 
 
 
-#[actix_web::main] // or #[tokio::main]
+#[actix_web::main]
 async fn main() -> std::io::Result<()> {
 
     if std::env::var_os("RUST_LOG").is_none() {
@@ -15,6 +18,8 @@ async fn main() -> std::io::Result<()> {
     }
     dotenv::dotenv().ok();
     env_logger::init();
+    let settings = Settings::new();
+    let db = connect(&settings.database_url).await;
     let port = (*utils::constants::PORT).clone();
     let address = (*utils::constants::ADDRESS).clone();
 
@@ -23,7 +28,7 @@ async fn main() -> std::io::Result<()> {
             .wrap(Logger::default())
             .configure(routes::home_routes::config)
     })
-        .bind((address, port))?
+        .bind(format!("{}:{}", address, port))?
         .run()
         .await
 }
