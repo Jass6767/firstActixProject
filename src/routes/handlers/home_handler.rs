@@ -1,19 +1,31 @@
 use serde_json::json;
-use actix_web::{HttpResponse, Responder, get, web};
+use actix_web::{HttpResponse, Responder, get, web, post};
+use serde::{Serialize, Deserialize};
+use crate::utils::shortner::generate_code;
 
 
+#[derive(Serialize)]
+struct ShortenResponse {
+    short_code: String,
+}
 
+#[derive(Deserialize)]
+struct ShortenRequest {
+    url: String,
+}
 
-#[get("/hello/{name}")]
-pub async fn greet(name: web::Path<String>) -> impl Responder {
-    let res = json!({ "message": format!("Hello, {name}") });
+#[get("/")]
+pub async fn first_page() -> impl Responder {
+    let res = json!({ "message": format!("URL Shortener Running") });
     HttpResponse::Ok().json(res)
 }
 
-#[get("/test/{token}")]
-pub async fn test(token: web::Path<String>) -> impl Responder {
-    match token.as_str() {
-        "12" => HttpResponse::Ok().json(json!({ "message": "Test 12" })),
-        _ => HttpResponse::ImATeapot().json(json!({ "message": "i am teapot" })),
-    }
+#[post("/shorten")]
+pub async fn shorten(data: web::Json<ShortenRequest>) -> impl Responder {
+    let code = generate_code();
+    HttpResponse::Ok().json(
+        ShortenResponse{
+            short_code: code
+        }
+    )
 }
