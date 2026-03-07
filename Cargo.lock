@@ -3038,11 +3038,12 @@ dependencies = [
  "actix-web",
  "dotenv",
  "env_logger",
+ "hex",
  "lazy_static",
- "rand 0.8.5",
  "sea-orm",
  "serde",
  "serde_json",
+ "sha2",
  "tokio",
 ]
 

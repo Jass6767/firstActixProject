@@ -22,7 +22,7 @@ pub async fn first_page() -> impl Responder {
 
 #[post("/shorten")]
 pub async fn shorten(data: web::Json<ShortenRequest>) -> impl Responder {
-    let code = generate_code();
+    let code = generate_code(&data.url);
     HttpResponse::Ok().json(
         ShortenResponse{
             short_code: code
