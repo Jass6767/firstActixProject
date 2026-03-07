@@ -1,9 +1,10 @@
 mod utils;
 mod routes;
+mod models;
 mod config;
 use config::database::connect;
 use config::settings::Settings;
-use actix_web::{App, HttpServer, middleware::Logger};
+use actix_web::{App, HttpServer, middleware::Logger, web};
 
 
 
@@ -20,11 +21,13 @@ async fn main() -> std::io::Result<()> {
     env_logger::init();
     let settings = Settings::new();
     let db = connect(&settings.database_url).await;
+    let db = web::Data::new(db);
     let port = (*utils::constants::PORT).clone();
     let address = (*utils::constants::ADDRESS).clone();
 
-    HttpServer::new(|| {
+    HttpServer::new(move || {
         App::new()
+            .app_data(db.clone())
             .wrap(Logger::default())
             .configure(routes::home_routes::config)
     })
