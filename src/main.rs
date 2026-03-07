@@ -4,7 +4,8 @@ mod models;
 mod config;
 use config::database::connect;
 use config::settings::Settings;
-use actix_web::{App, HttpServer, middleware::Logger, web};
+use actix_cors::Cors;
+use actix_web::{App, HttpServer, middleware::Logger, web, http};
 
 
 
@@ -25,8 +26,15 @@ async fn main() -> std::io::Result<()> {
     let port = (*utils::constants::PORT).clone();
     let address = (*utils::constants::ADDRESS).clone();
 
+    
     HttpServer::new(move || {
+        let cors = Cors::default()
+            .allowed_origin("http://localhost:5173")
+            .allowed_methods(vec!["POST", "GET"])
+            .allowed_header(http::header::CONTENT_TYPE)
+            .max_age(3600);
         App::new()
+            .wrap(cors)
             .app_data(db.clone())
             .wrap(Logger::default())
             .configure(routes::home_routes::config)
