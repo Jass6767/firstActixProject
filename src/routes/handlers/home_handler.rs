@@ -1,4 +1,5 @@
 use serde_json::json;
+use std::env;
 use actix_web::{HttpResponse, Responder, get, web, post};
 use serde::{Serialize, Deserialize};
 use crate::utils::shortner::generate_code;
@@ -41,11 +42,13 @@ pub async fn first_page(db: web::Data<DatabaseConnection>, code: web::Path<Strin
 pub async fn shorten(db: web::Data<DatabaseConnection> ,data: web::Json<ShortenRequest>) -> impl Responder {
     let code = generate_code(&data.url);
     let res = url::Entity::find().filter(url::Column::Shorten.eq(&code)).one(db.get_ref()).await;
+    dotenv::dotenv().ok();
+    let host = env::var("HOST").expect("Set HOST BRO!!!");
     match res {
         Ok(Some(record)) => {
             return HttpResponse::Ok().json(
                 ShortenResponse{
-                    short_url: format!("https://localhost/{}", record.shorten)
+                    short_url: format!("{}{}", host , record.shorten)
                 }
             );
         }
@@ -60,7 +63,7 @@ pub async fn shorten(db: web::Data<DatabaseConnection> ,data: web::Json<ShortenR
                 Ok(_) => {
                     return HttpResponse::Ok().json(
                         ShortenResponse{
-                            short_url: format!("https://localhost/{code}")
+                            short_url: format!("{host}{code}")
                         }
                     );
                 }
