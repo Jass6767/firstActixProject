@@ -20,7 +20,7 @@ struct ShortenRequest {
 #[get("/{code}")]
 pub async fn first_page(db: web::Data<DatabaseConnection>, code: web::Path<String>) -> impl Responder {
     let res = url::Entity::find().filter(url::Column::Shorten.eq(code.to_string())).one(db.get_ref()).await;
-    match res{
+    match res {
         Ok(Some(record)) => {
             return HttpResponse::Ok().json(json!({"message":format!("{}", record.url)}))
         }
@@ -39,7 +39,7 @@ pub async fn first_page(db: web::Data<DatabaseConnection>, code: web::Path<Strin
 }
 
 #[post("/shorten")]
-pub async fn shorten(db: web::Data<DatabaseConnection> ,data: web::Json<ShortenRequest>) -> impl Responder {
+pub async fn shorten(db: web::Data<DatabaseConnection>, data: web::Json<ShortenRequest>) -> impl Responder {
     let code = generate_code(&data.url);
     let res = url::Entity::find().filter(url::Column::Shorten.eq(&code)).one(db.get_ref()).await;
     dotenv::dotenv().ok();
@@ -48,7 +48,7 @@ pub async fn shorten(db: web::Data<DatabaseConnection> ,data: web::Json<ShortenR
         Ok(Some(record)) => {
             return HttpResponse::Ok().json(
                 ShortenResponse{
-                    short_url: format!("{}{}", host , record.shorten)
+                    short_url: format!("{}{}", host, record.shorten)
                 }
             );
         }

@@ -2,7 +2,6 @@ use std::env;
 
 pub struct Settings {
     pub database_url: String,
-
 }
 
 impl Settings {

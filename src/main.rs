@@ -6,7 +6,7 @@ use config::database::connect;
 use config::settings::Settings;
 use actix_cors::Cors;
 use actix_web::{App, HttpServer, middleware::Logger, web, http};
-
+use env_logger;
 
 
 #[actix_web::main]
@@ -16,8 +16,8 @@ async fn main() -> std::io::Result<()> {
         unsafe {
             std::env::set_var("RUST_LOG","actix_web=info");
         }
-
     }
+    
     dotenv::dotenv().ok();
     env_logger::init();
     let settings = Settings::new();
@@ -29,7 +29,7 @@ async fn main() -> std::io::Result<()> {
     
     HttpServer::new(move || {
         let cors = Cors::default()
-            .allowed_origin("http://localhost:5173")
+            .allowed_origin("https://url-shortner-rouge-beta.vercel.app/")
             .allowed_methods(vec!["POST", "GET"])
             .allowed_header(http::header::CONTENT_TYPE)
             .max_age(3600);
@@ -39,7 +39,7 @@ async fn main() -> std::io::Result<()> {
             .wrap(Logger::default())
             .configure(routes::home_routes::config)
     })
-        .bind(format!("{}:{}", address, port))?
-        .run()
-        .await
+    .bind(format!("{}:{}", address, port))?
+    .run()
+    .await
 }

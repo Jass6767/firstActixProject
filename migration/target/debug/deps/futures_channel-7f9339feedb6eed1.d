@@ -1,0 +1,9 @@
+C:\Users\Jashanpreet singh\RustroverProjects\web_app_using_actix\migration\target\debug\deps\futures_channel-7f9339feedb6eed1.d: C:\Users\Jashanpreet\ singh\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\futures-channel-0.3.32\src\lib.rs C:\Users\Jashanpreet\ singh\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\futures-channel-0.3.32\src\lock.rs C:\Users\Jashanpreet\ singh\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\futures-channel-0.3.32\src\oneshot.rs
+
+C:\Users\Jashanpreet singh\RustroverProjects\web_app_using_actix\migration\target\debug\deps\libfutures_channel-7f9339feedb6eed1.rlib: C:\Users\Jashanpreet\ singh\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\futures-channel-0.3.32\src\lib.rs C:\Users\Jashanpreet\ singh\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\futures-channel-0.3.32\src\lock.rs C:\Users\Jashanpreet\ singh\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\futures-channel-0.3.32\src\oneshot.rs
+
+C:\Users\Jashanpreet singh\RustroverProjects\web_app_using_actix\migration\target\debug\deps\libfutures_channel-7f9339feedb6eed1.rmeta: C:\Users\Jashanpreet\ singh\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\futures-channel-0.3.32\src\lib.rs C:\Users\Jashanpreet\ singh\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\futures-channel-0.3.32\src\lock.rs C:\Users\Jashanpreet\ singh\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\futures-channel-0.3.32\src\oneshot.rs
+
+C:\Users\Jashanpreet\ singh\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\futures-channel-0.3.32\src\lib.rs:
+C:\Users\Jashanpreet\ singh\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\futures-channel-0.3.32\src\lock.rs:
+C:\Users\Jashanpreet\ singh\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\futures-channel-0.3.32\src\oneshot.rs:
