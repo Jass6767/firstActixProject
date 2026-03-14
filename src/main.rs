@@ -24,8 +24,8 @@ async fn main() -> std::io::Result<()> {
     let db = connect(&settings.database_url).await;
     let db = web::Data::new(db);
 
-    let address = env::var("ADDRESS").unwrap_or("0.0.0.0".to_string());
-    let port = env::var("PORT").unwrap_or("8080".to_string());
+    let address = std::env::var("ADDRESS").unwrap_or("0.0.0.0".to_string());
+    let port = std::env::var("PORT").unwrap_or("8080".to_string());
 
     
     HttpServer::new(move || {
