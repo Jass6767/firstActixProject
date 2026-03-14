@@ -23,8 +23,9 @@ async fn main() -> std::io::Result<()> {
     let settings = Settings::new();
     let db = connect(&settings.database_url).await;
     let db = web::Data::new(db);
-    let port = (*utils::constants::PORT).clone();
-    let address = (*utils::constants::ADDRESS).clone();
+
+    let address = env::var("ADDRESS").unwrap_or("0.0.0.0".to_string());
+    let port = env::var("PORT").unwrap_or("8080".to_string());
 
     
     HttpServer::new(move || {
